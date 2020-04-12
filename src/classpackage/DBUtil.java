@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  */
 public class DBUtil {
-    // 定义数据库连接参数
+    // 定义数据库连接参数,连接至云服务器数据库中
     public static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
     public static final String URL = "jdbc:mysql://47.95.200.90:3306/takeaway_platform?serverTimezone=GMT";
     public static final String USERNAME = "takeaway_platform";
