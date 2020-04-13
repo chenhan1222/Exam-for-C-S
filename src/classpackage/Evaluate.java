@@ -18,7 +18,6 @@ public class Evaluate {
     public String comment;//评论
     public double grade;//评分
     public String reply;//商家回复
-
     public static void addEvaluate(Evaluate a) {
         JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
         String sql = "insert into evaluate values(?,?,?,?,?)";

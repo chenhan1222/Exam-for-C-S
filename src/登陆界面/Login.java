@@ -67,7 +67,7 @@ public class Login {
     /**
      * Initialize the contents of the frame.
      */
-
+    //登录界面初始化
     private void initialize() {
         Loginframe = new JFrame();
         Loginframe.setTitle("欢迎来到登陆界面");
@@ -101,10 +101,10 @@ public class Login {
         btnNewButton.setIcon(new ImageIcon("src/images/提交.png"));
         //btnNewButton.setHorizontalTextPosition(SwingConstants.RIGHT);//
         btnNewButton.setText("\u767B\u9646");
-
+        //提交按钮的事件监听器
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String usernum = textField.getText();
+                String usernum = textField.getText();//获取登录所用的用户名和密码
                 String password = String.valueOf(passwordField.getPassword());
                 try {
                     if (loginSQL(usernum, password) == 0)
@@ -115,20 +115,20 @@ public class Login {
                         JOptionPane.showMessageDialog(null, "密码错误请重新输入");
                     if (loginSQL(usernum, password) == 3) {
                         JOptionPane.showMessageDialog(null, "登陆成功");
-                        Login.usernum = usernum;      //登陆成功时用来记录用户名
+                        Login.usernum = usernum;      //登陆成功后记录用户账号来与数据库中的内容进行匹配
                         // Loginframe.setVisible(false);
                         Loginframe.dispose();
-                        if (User.getUserType(usernum).equals("顾客")) {
+                        if (User.getUserType(usernum).equals("顾客")) {//如果是顾客类型，调用用户界面
                             Customerframe window = new Customerframe();
                             window.customerframe.setVisible(true);
                             Customerframe.setCenter(window.customerframe);
-                        } else {
-                            if (Store.ifRegist(usernum) == false) {
+                        } else {//如果是商家类型
+                            if (Store.ifRegist(usernum) == false) {//如果商家还未注册店铺则提醒设置店铺信息
                                 JOptionPane.showMessageDialog(null, "您还没有注册商店请先进行注册！", "提示", JOptionPane.PLAIN_MESSAGE);
-                                Storeregistframe window = new Storeregistframe();
+                                Storeregistframe window = new Storeregistframe();//商店注册界面
                                 window.frame.setVisible(true);
                                 Customerframe.setCenter(window.frame);
-                            } else {
+                            } else {//若该账号已有店铺
                                 store_id = Store.getStore_id(usernum);
                                 Businessframe window = new Businessframe();
                                 window.businessframe.setVisible(true);
@@ -147,9 +147,10 @@ public class Login {
         btnNewButton.setBounds(54, 295, 100, 34);
         Loginframe.getContentPane().add(btnNewButton);
 
+        //重置按钮
         JButton btnNewButton_1 = new JButton("重置");
         btnNewButton_1.setIcon(new ImageIcon("src/images/重置.png"));
-        btnNewButton_1.addActionListener(new ActionListener() {
+        btnNewButton_1.addActionListener(new ActionListener() {//事件监听器，将对应文本框清零
             public void actionPerformed(ActionEvent e) {
                 textField.setText("");
                 passwordField.setText("");
@@ -159,9 +160,10 @@ public class Login {
         btnNewButton_1.setBounds(207, 295, 100, 34);
         Loginframe.getContentPane().add(btnNewButton_1);
 
+        //注册按钮
         JButton btnNewButton_2 = new JButton("注册");//注册
         btnNewButton_2.setIcon(new ImageIcon("src/images/注册.png"));
-        btnNewButton_2.addActionListener(new ActionListener() {
+        btnNewButton_2.addActionListener(new ActionListener() {//调用注册界面
             public void actionPerformed(ActionEvent e) {
                 Registeframe window = new Registeframe();
                 window.frame1.setVisible(true);
@@ -173,6 +175,7 @@ public class Login {
         btnNewButton_2.setBounds(361, 294, 100, 34);
         Loginframe.getContentPane().add(btnNewButton_2);
 
+        //登录界面信息
         JLabel lblNewLabel_2 = new JLabel("\u723D\u6781\u4E86\u8BA2\u9910\u7CFB\u7EDF\u6B22\u8FCE\u60A8\uFF01");
         lblNewLabel_2.setIcon(new ImageIcon("src/images/美食.png"));
         lblNewLabel_2.setFont(new Font("宋体", Font.BOLD, 20));
@@ -181,20 +184,22 @@ public class Login {
 
     }
 
+    //根据返回值判断登录是否成功的类
     public int loginSQL(String usernum, String password) throws ClassNotFoundException {
-        if (usernum.length() == 0 || password.length() == 0) {
+        if (usernum.length() == 0 || password.length() == 0) {//账号或密码为空时返回0
             return 0;
         }
         //连接数据库判断是否登录成功
         Connection conn = null;
-        PreparedStatement pstmt1 = null;
+        PreparedStatement pstmt1 = null;//调用PreparedStatement接口
         PreparedStatement pstmt2 = null;
         ResultSet rs1 = null;
         ResultSet rs2 = null;
         //1.获取连接
         try {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");//加载JDBC驱动
+            //设置云服务器上数据库所在url及数据库的账号和密码
             conn = DriverManager.getConnection("jdbc:mysql://47.95.200.90:3306/takeaway_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT", "takeaway_platform", "311214");
             conn.setAutoCommit(false);
             //2.定义sql
@@ -230,57 +235,6 @@ public class Login {
         }
 
         return 0;
-    }
-
-    public void zhuce(String type, String usernum, String password1, String password2, String Address, String iphonenum) throws ClassNotFoundException, SQLException {
-        Connection conn = null;
-        PreparedStatement pstmt1 = null;
-        PreparedStatement pstmt2 = null;
-        ResultSet rs1 = null;
-
-        try {
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://47.95.200.90:3306/takeaway_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT", "takeaway_platform", "311214");
-            conn.setAutoCommit(false);
-            String sql1 = "select * from user where usernum = ? ";
-            String sql2 = "insert into user values(?,?,?,?,?)";
-            pstmt1 = conn.prepareStatement(sql1);
-            pstmt2 = conn.prepareStatement(sql2);
-            //给?赋值
-            pstmt1.setString(1, usernum);
-            pstmt2.setString(1, type);
-            pstmt2.setString(2, usernum);
-            pstmt2.setString(3, password1);
-            pstmt2.setString(4, Address);
-            pstmt2.setString(5, iphonenum);
-            rs1 = pstmt1.executeQuery();
-            conn.commit();
-            if (usernum.length() == 0 || password1.length() == 0 || password2.length() == 0)
-                JOptionPane.showMessageDialog(null, "输入不能为空！");
-            else {
-                if (rs1.next())
-                    JOptionPane.showMessageDialog(null, "您输入的用户名已存在请重新输入！");
-                else if (!password1.equals(password2)) {
-                    JOptionPane.showMessageDialog(null, "您输入的两次密码不一致请重新输入！");
-                } else {
-                    template.update(sql2, type, usernum, password1, Address, iphonenum);
-                    JOptionPane.showMessageDialog(null, "恭喜您，注册成功！");
-                }
-            }
-        } catch (Exception e) {
-            try {
-                if (conn != null) {
-                    conn.rollback();
-                }
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-            e.printStackTrace();
-        } finally {
-            JDBCUtils.close(rs1, pstmt1, conn);
-        }
-
     }
 }
 

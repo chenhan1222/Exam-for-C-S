@@ -54,7 +54,7 @@ public class Registeframe {
         //frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.getContentPane().setLayout(null);
 
-        JLabel label = new JLabel("\u8BF7\u8F93\u5165\u60A8\u7684\u7528\u6237\u540D\uFF1A");
+        JLabel label = new JLabel("\u8BF7\u8F93\u5165\u60A8\u7684\u7528\u6237\u540D\uFF1A");//请输入您的用户名：
         label.setFont(new Font("宋体", Font.BOLD, 16));
         label.setBounds(10, 49, 166, 33);
         frame1.getContentPane().add(label);
@@ -65,7 +65,7 @@ public class Registeframe {
         frame1.getContentPane().add(textField001);
         textField001.setColumns(10);
 
-        JLabel lblNewLabel = new JLabel("\u8BF7\u8F93\u5165\u60A8\u7684\u5BC6\u7801\uFF1A");
+        JLabel lblNewLabel = new JLabel("\u8BF7\u8F93\u5165\u60A8\u7684\u5BC6\u7801\uFF1A");//请输入您的密码：
         lblNewLabel.setFont(new Font("宋体", Font.BOLD, 16));
         lblNewLabel.setBounds(10, 92, 166, 33);
         frame1.getContentPane().add(lblNewLabel);
@@ -75,7 +75,7 @@ public class Registeframe {
         passwordField001.setBounds(183, 96, 232, 25);
         frame1.getContentPane().add(passwordField001);
 
-        JLabel lblNewLabel_1 = new JLabel("\u8BF7\u518D\u6B21\u8F93\u5165\u60A8\u7684\u5BC6\u7801\uFF1A");
+        JLabel lblNewLabel_1 = new JLabel("\u8BF7\u518D\u6B21\u8F93\u5165\u60A8\u7684\u5BC6\u7801\uFF1A");//请再次输入您的密码：
         lblNewLabel_1.setFont(new Font("宋体", Font.BOLD, 16));
         lblNewLabel_1.setBounds(10, 135, 166, 33);
         frame1.getContentPane().add(lblNewLabel_1);
@@ -85,12 +85,12 @@ public class Registeframe {
         passwordField_001.setBounds(183, 139, 232, 25);
         frame1.getContentPane().add(passwordField_001);
 
-        JLabel lblNewLabel_2 = new JLabel("\u9009\u62E9\u60A8\u7684\u7528\u6237\u7C7B\u578B:");
+        JLabel lblNewLabel_2 = new JLabel("\u9009\u62E9\u60A8\u7684\u7528\u6237\u7C7B\u578B:");//选择您的用户类型
         lblNewLabel_2.setFont(new Font("宋体", Font.BOLD, 16));
         lblNewLabel_2.setBounds(10, 10, 190, 21);
         frame1.getContentPane().add(lblNewLabel_2);
 
-        comboBox = new JComboBox<>();
+        comboBox = new JComboBox<>();//选择自己要注册为的用户类型
         comboBox.setFont(new Font("宋体", Font.BOLD, 16));
         comboBox.setModel(new DefaultComboBoxModel<String>(new String[]{"顾客", "店主"}));
         comboBox.setBounds(220, 8, 85, 27);
@@ -148,12 +148,12 @@ public class Registeframe {
         btnNewButton_001.setBounds(250, 280, 100, 34);
         frame1.getContentPane().add(btnNewButton_001);
 
-        JLabel lblNewLabel_3 = new JLabel("\u8BF7\u8F93\u5165\u60A8\u7684\u6635\u79F0\uFF1A");
+        JLabel lblNewLabel_3 = new JLabel("\u8BF7\u8F93\u5165\u60A8\u7684\u6635\u79F0\uFF1A");//请输入您的昵称：
         lblNewLabel_3.setFont(new Font("宋体", Font.BOLD, 16));
         lblNewLabel_3.setBounds(10, 180, 166, 21);
         frame1.getContentPane().add(lblNewLabel_3);
 
-        JLabel lblNewLabel_4 = new JLabel("\u8BF7\u8F93\u5165\u60A8\u7684\u624B\u673A\u53F7\uFF1A");
+        JLabel lblNewLabel_4 = new JLabel("\u8BF7\u8F93\u5165\u60A8\u7684\u624B\u673A\u53F7\uFF1A");//请输入您的手机号：
         lblNewLabel_4.setFont(new Font("宋体", Font.BOLD, 16));
         lblNewLabel_4.setBounds(10, 224, 149, 21);
         frame1.getContentPane().add(lblNewLabel_4);
@@ -171,8 +171,7 @@ public class Registeframe {
         ResultSet rs1 = null;
 
         try {
-
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://47.95.200.90:3306/takeaway_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT", "takeaway_platform", "311214");
             conn.setAutoCommit(false);
             String sql1 = "select * from user where usernum = ? ";
