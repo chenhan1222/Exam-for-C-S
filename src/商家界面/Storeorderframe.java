@@ -2,6 +2,7 @@ package 商家界面;
 
 import Test.JBoxTestCell;
 import classpackage.Userorder;
+import 登陆界面.Login;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -14,13 +15,12 @@ import java.util.Vector;
 public class Storeorderframe {
     public JFrame frame;
     private JTable table_1;
-    private int store_id;
 
     /**
      * Launch the application.
      */
     public Storeorderframe() {
-        store_id = 2;
+        int store_id = Login.store_id;
         frame = new JFrame();
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(100, 100, 939, 557);
@@ -288,13 +288,6 @@ public class Storeorderframe {
         menuBar.add(mnNewMenu_3);
     }
 
-    public int getStore_id() {
-        return store_id;
-    }
-
-    public void setStore_id(int store_id) {
-        this.store_id = store_id;
-    }
 
     public void refreshUserorderTable(List<Userorder> userorders, DefaultTableModel dtm) {
         dtm.setRowCount(0);//清空列表

@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
 
-//顾客界面
 public class Customerframe {
     public static int store_id;//用来记录选中的商店号
     public JFrame customerframe;
@@ -66,8 +65,8 @@ public class Customerframe {
         customerframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         customerframe.getContentPane().setLayout(null);
 
-        int windowWidth = customerframe.getWidth();             //获得窗口宽
-        int windowHeight = customerframe.getHeight();           //获得窗口高
+        int windowWidth = customerframe.getWidth();                     //获得窗口宽
+        int windowHeight = customerframe.getHeight();                   //获得窗口高
         Toolkit kit = Toolkit.getDefaultToolkit();              //定义工具包
         Dimension screenSize = kit.getScreenSize();             //获取屏幕的尺寸
         int screenWidth = screenSize.width;                     //获取屏幕的宽
@@ -82,11 +81,12 @@ public class Customerframe {
         scrollPane.setLocation(10, 58);
         customerframe.getContentPane().add(scrollPane);
         refreshStoresTable(Store.getstores(), dtm);
-        //进入店铺
-        JButton btnNewButton_1 = new JButton("\u8FDB\u5165");//进入
+
+        JButton btnNewButton_1 = new JButton("\u8FDB\u5165");
         btnNewButton_1.setIcon(new ImageIcon("src/images/进入.png"));
         btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 for (int i = 0; i < table.getRowCount(); i++) {
                     String value = table.getValueAt(i, 4).toString();//读取你获取行号的某一列的值（也就是字段）
                     int store_id = Integer.valueOf(table.getValueAt(i, 0).toString());
@@ -101,13 +101,13 @@ public class Customerframe {
             }
         });
         btnNewButton_1.setFont(new Font("宋体", Font.BOLD, 16));
-        btnNewButton_1.setBounds(738, 234, 100, 34);
+        btnNewButton_1.setBounds(738, 234, 100, 30);
         customerframe.getContentPane().add(btnNewButton_1);
-        //以下为顶部菜单栏的内容
+
         JMenuBar menuBar = new JMenuBar();
         customerframe.setJMenuBar(menuBar);
 
-        JMenuItem mntmNewMenuItem_2 = new JMenuItem("\u641C\u7D22\uFF08Search\uFF09");//搜索
+        JMenuItem mntmNewMenuItem_2 = new JMenuItem("\u641C\u7D22\uFF08Search\uFF09");
         mntmNewMenuItem_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String storename = textField.getText();
@@ -116,7 +116,7 @@ public class Customerframe {
             }
         });
 
-        JLabel lblNewLabel = new JLabel("\u8BF7\u8F93\u5165\u5546\u5BB6\u540D:");//请输入商家名
+        JLabel lblNewLabel = new JLabel("\u8BF7\u8F93\u5165\u5546\u5BB6\u540D:");
         menuBar.add(lblNewLabel);
         lblNewLabel.setFont(new Font("宋体", Font.BOLD, 16));
 
@@ -127,21 +127,22 @@ public class Customerframe {
         mntmNewMenuItem_2.setFont(new Font("宋体", Font.BOLD, 16));
         menuBar.add(mntmNewMenuItem_2);
 
-        JMenu mnNewMenu = new JMenu("\u6392\u5E8F\uFF08Sort\uFF09");//排序
+        JMenu mnNewMenu = new JMenu("\u6392\u5E8F\uFF08Sort\uFF09");
         mnNewMenu.setBounds(10, 0, 100, 100);
         menuBar.add(mnNewMenu);
         mnNewMenu.setFont(new Font("宋体", Font.BOLD, 16));
 
-        JMenuItem mntmNewMenuItem = new JMenuItem("\u6309\u8BC4\u5206\u6392\u5E8F");//按评分排序
+        JMenuItem mntmNewMenuItem = new JMenuItem("\u6309\u8BC4\u5206\u6392\u5E8F");
         mntmNewMenuItem.setFont(new Font("宋体", Font.BOLD, 16));
         mntmNewMenuItem.addActionListener(new ActionListener() {//按评分排序
             public void actionPerformed(ActionEvent e) {
                 refreshStoresTable(Store.sqlSortByGrade(), dtm);
+
             }
         });
         mnNewMenu.add(mntmNewMenuItem);
 
-        JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u6309\u9500\u91CF\u6392\u5E8F");//按销量排序
+        JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u6309\u9500\u91CF\u6392\u5E8F");
         mntmNewMenuItem_1.setFont(new Font("宋体", Font.BOLD, 16));
         mntmNewMenuItem_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {    //按销售量排序
@@ -150,13 +151,13 @@ public class Customerframe {
         });
         mnNewMenu.add(mntmNewMenuItem_1);
 
-        JMenu mnNewMenu_1 = new JMenu("\u7528\u6237\u7BA1\u7406\uFF08Manage\uFF09");//用户管理
+        JMenu mnNewMenu_1 = new JMenu("\u7528\u6237\u7BA1\u7406\uFF08Manage\uFF09");
         mnNewMenu_1.setFont(new Font("宋体", Font.BOLD, 16));
         menuBar.add(mnNewMenu_1);
 
-        JMenuItem mntmNewMenuItem_6 = new JMenuItem("\u6211\u7684\u4E2A\u4EBA\u4FE1\u606F");//我的个人信息
+        JMenuItem mntmNewMenuItem_6 = new JMenuItem("\u6211\u7684\u4E2A\u4EBA\u4FE1\u606F");
         mntmNewMenuItem_6.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {//我的个人信息
                 Personal_information_frame window = new Personal_information_frame();
                 window.frame.setVisible(true);
             }
@@ -164,7 +165,7 @@ public class Customerframe {
         mntmNewMenuItem_6.setFont(new Font("宋体", Font.BOLD, 16));
         mnNewMenu_1.add(mntmNewMenuItem_6);
 
-        JMenuItem mntmNewMenuItem_4 = new JMenuItem("\u6211\u7684\u6536\u8D27\u4FE1\u606F");//我的收货信息
+        JMenuItem mntmNewMenuItem_4 = new JMenuItem("\u6211\u7684\u6536\u8D27\u4FE1\u606F");
         mntmNewMenuItem_4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 MyReceivinginformationframe window = new MyReceivinginformationframe();
@@ -176,19 +177,19 @@ public class Customerframe {
         mntmNewMenuItem_4.setFont(new Font("宋体", Font.BOLD, 16));
         mnNewMenu_1.add(mntmNewMenuItem_4);
 
-        JMenuItem mntmNewMenuItem_3 = new JMenuItem("\u6211\u7684\u5173\u6CE8");//我的关注
+        JMenuItem mntmNewMenuItem_3 = new JMenuItem("\u6211\u7684\u5173\u6CE8");
         mnNewMenu_1.add(mntmNewMenuItem_3);
         mntmNewMenuItem_3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {//我的关注
                 List<Store> stores = User.getYourFollwStores(Login.usernum);
                 refreshStoresTable(stores, dtm);
             }
         });
-        mntmNewMenuItem_3.setFont(new Font("宋体", mntmNewMenuItem_3.getFont().getStyle() | Font.BOLD, mntmNewMenuItem_3.getFont().getSize() + 4));
+        mntmNewMenuItem_3.setFont(new Font("\u5B8B\u4F53", mntmNewMenuItem_3.getFont().getStyle() | Font.BOLD, mntmNewMenuItem_3.getFont().getSize() + 4));
 
-        JMenuItem menuItem = new JMenuItem("\u6211\u7684\u8BA2\u5355");//我的订单
+        JMenuItem menuItem = new JMenuItem("\u6211\u7684\u8BA2\u5355");
         menuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {//我的订单
                 Myorderframe window = new Myorderframe();
                 window.orderframe.setVisible(true);
                 Customerframe.setCenter(window.orderframe);
@@ -197,7 +198,7 @@ public class Customerframe {
         menuItem.setFont(new Font("宋体", Font.BOLD, 16));
         mnNewMenu_1.add(menuItem);
 
-        JMenuItem mntmNewMenuItem_5 = new JMenuItem("\u5237\u65B0\uFF08Refresh\uFF09");//刷新
+        JMenuItem mntmNewMenuItem_5 = new JMenuItem("\u5237\u65B0\uFF08Refresh\uFF09");
         mntmNewMenuItem_5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {//刷新
                 refreshStoresTable(Store.getstores(), dtm);
@@ -207,8 +208,7 @@ public class Customerframe {
         menuBar.add(mntmNewMenuItem_5);
     }
 
-    //刷新商品信息的函数
-    public void refreshGoodsTable(List<Goods> goods, DefaultTableModel dtm) {
+    public void refreshGoodsTable(List<Goods> goods, DefaultTableModel dtm) {    //刷新商品信息的函数
         dtm.setRowCount(0);//清空列表
         String[] tableHeads = new String[]{"编号", "名称", "种类", "价格", "销售量", "是否选中"};
         dtm.setColumnIdentifiers(tableHeads);
@@ -232,7 +232,6 @@ public class Customerframe {
         tcm.getColumn(5).setMaxWidth(80);
     }
 
-    //刷新店铺信息的函数
     public void refreshStoresTable(List<Store> stores, DefaultTableModel dtm) {
         dtm.setRowCount(0);//清空列表
         //int num=1;
@@ -257,6 +256,8 @@ public class Customerframe {
         tcm.getColumn(4).setPreferredWidth(80);
         tcm.getColumn(4).setWidth(80);
         tcm.getColumn(4).setMaxWidth(80);
+
+
     }
 
 }
@@ -264,25 +265,29 @@ public class Customerframe {
 class TestTableCellRenderer extends JCheckBox implements TableCellRenderer {//设置复选框
     private static final long serialVersionUID = 3L;
 
-    public Component getTableCellRendererComponent(JTable tabl, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable tabl,
+                                                   Object value, boolean isSelected, boolean hasFocus, int row,
+                                                   int column) {
         Boolean b = (Boolean) value;
         this.setSelected(b.booleanValue());
         return this;
     }
 }
 
-// 添加按钮
 class MyButtonRender implements TableCellRenderer {
     private JButton button;
 
     public MyButtonRender() {
         this.initButton();
+
+        // 添加按钮。
     }
 
     private void initButton() {
         this.button = new JButton("+");
         // 设置按钮的大小及位置。
         this.button.setBounds(0, 0, 40, 5);
+        ;
         this.button.setFont(new Font("宋体", Font.BOLD, 4));
         // 在渲染器里边添加按钮的事件是不会触发的
         // this.button.addActionListener(new ActionListener()
@@ -297,7 +302,7 @@ class MyButtonRender implements TableCellRenderer {
 
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
                                                    int column) {
-        // 只为按钮赋值即可。也可以作其它操作，如绘背景等
+        // 只为按钮赋值即可。也可以作其它操作，如绘背景等。
         this.button.setText(value == null ? "" : String.valueOf(value));
         return this.button;
     }
@@ -312,7 +317,7 @@ class MyButtonEditor extends DefaultCellEditor {
     private JButton button;
 
     public MyButtonEditor(JTable table) {
-        // DefautlCellEditor有此构造器，需要传入一个，但这个不会使用到，直接new一个即可
+        // DefautlCellEditor有此构造器，需要传入一个，但这个不会使用到，直接new一个即可。
         super(new JTextField());
 
         // 设置点击几次激活编辑。
@@ -334,6 +339,7 @@ class MyButtonEditor extends DefaultCellEditor {
             public void actionPerformed(ActionEvent e) {
                 // 触发取消编辑的事件，不会调用tableModel的setValue方法。
                 MyButtonEditor.this.fireEditingCanceled();
+
                 // 这里可以做其它操作。
                 // 可以将table传入，通过getSelectedRow,getSelectColumn方法获取到当前选择的行和列及其它操作等。
                 int i = table.getSelectedRow();//获得选中行

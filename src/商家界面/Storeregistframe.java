@@ -69,7 +69,7 @@ public class Storeregistframe {
         frame.getContentPane().add(textField_1);
         textField_1.setColumns(10);
 
-        JLabel lblNewLabel_2 = new JLabel("\u5546\u5E97\u7535\u8BDD\uFF1A");
+        JLabel lblNewLabel_2 = new JLabel("\u7535\u8BDD\uFF1A");
         lblNewLabel_2.setFont(new Font("ËÎÌו", Font.BOLD, 14));
         lblNewLabel_2.setBounds(23, 180, 70, 21);
         frame.getContentPane().add(lblNewLabel_2);
@@ -86,16 +86,16 @@ public class Storeregistframe {
 
         JLabel lblNewLabel_4 = new JLabel("\u5E97\u4E3B\u8D26\u53F7\uFF1A");
         lblNewLabel_4.setFont(new Font("ËÎÌו", Font.BOLD, 14));
-        lblNewLabel_4.setBounds(23, 10, 70, 31);
+        lblNewLabel_4.setBounds(23, 10, 93, 31);
         frame.getContentPane().add(lblNewLabel_4);
 
         JLabel lblNewLabel_5 = new JLabel(Login.usernum);
         lblNewLabel_5.setFont(new Font("ËÎÌו", Font.BOLD, 14));
-        lblNewLabel_5.setBounds(118, 10, 102, 31);
+        lblNewLabel_5.setBounds(138, 10, 174, 31);
         frame.getContentPane().add(lblNewLabel_5);
 
-        JButton btnNewButton = new JButton("\u5730\u5740\u81EA\u52A8\u8BC6\u522B\uFF0C\u529F\u80FD\u6709\u5F85\u5F00\u53D1");
-        btnNewButton.setBounds(265, 119, 112, 23);
+        JButton btnNewButton = new JButton("\u5730\u5740\u81EA\u52A8\u8BC6\u522B(\u5F00\u53D1\u4E2D)");
+        btnNewButton.setBounds(265, 119, 166, 23);
         frame.getContentPane().add(btnNewButton);
 
 

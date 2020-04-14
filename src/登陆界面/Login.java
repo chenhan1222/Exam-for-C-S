@@ -21,7 +21,6 @@ public class Login {
     private JTextField textField;
     private JPasswordField passwordField;
     private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
-
     /**
      * Create the application.
      */
@@ -67,7 +66,7 @@ public class Login {
     /**
      * Initialize the contents of the frame.
      */
-    //登录界面初始化
+
     private void initialize() {
         Loginframe = new JFrame();
         Loginframe.setTitle("欢迎来到登陆界面");
@@ -75,6 +74,7 @@ public class Login {
         Loginframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Loginframe.getContentPane().setLayout(null);
 
+        Customerframe.setCenter(Loginframe);
         textField = new JTextField();
         textField.setBounds(173, 146, 243, 25);
         Loginframe.getContentPane().add(textField);
@@ -101,10 +101,10 @@ public class Login {
         btnNewButton.setIcon(new ImageIcon("src/images/提交.png"));
         //btnNewButton.setHorizontalTextPosition(SwingConstants.RIGHT);//
         btnNewButton.setText("\u767B\u9646");
-        //提交按钮的事件监听器
+
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String usernum = textField.getText();//获取登录所用的用户名和密码
+                String usernum = textField.getText();
                 String password = String.valueOf(passwordField.getPassword());
                 try {
                     if (loginSQL(usernum, password) == 0)
@@ -115,20 +115,20 @@ public class Login {
                         JOptionPane.showMessageDialog(null, "密码错误请重新输入");
                     if (loginSQL(usernum, password) == 3) {
                         JOptionPane.showMessageDialog(null, "登陆成功");
-                        Login.usernum = usernum;      //登陆成功后记录用户账号来与数据库中的内容进行匹配
+                        Login.usernum = usernum;      //登陆成功时用来记录用户名
                         // Loginframe.setVisible(false);
                         Loginframe.dispose();
-                        if (User.getUserType(usernum).equals("顾客")) {//如果是顾客类型，调用用户界面
+                        if (User.getUserType(usernum).equals("顾客")) {
                             Customerframe window = new Customerframe();
                             window.customerframe.setVisible(true);
                             Customerframe.setCenter(window.customerframe);
-                        } else {//如果是商家类型
-                            if (Store.ifRegist(usernum) == false) {//如果商家还未注册店铺则提醒设置店铺信息
+                        } else {
+                            if (Store.ifRegist(usernum) == false) {
                                 JOptionPane.showMessageDialog(null, "您还没有注册商店请先进行注册！", "提示", JOptionPane.PLAIN_MESSAGE);
-                                Storeregistframe window = new Storeregistframe();//商店注册界面
+                                Storeregistframe window = new Storeregistframe();
                                 window.frame.setVisible(true);
                                 Customerframe.setCenter(window.frame);
-                            } else {//若该账号已有店铺
+                            } else {
                                 store_id = Store.getStore_id(usernum);
                                 Businessframe window = new Businessframe();
                                 window.businessframe.setVisible(true);
@@ -147,10 +147,9 @@ public class Login {
         btnNewButton.setBounds(54, 295, 100, 34);
         Loginframe.getContentPane().add(btnNewButton);
 
-        //重置按钮
         JButton btnNewButton_1 = new JButton("重置");
         btnNewButton_1.setIcon(new ImageIcon("src/images/重置.png"));
-        btnNewButton_1.addActionListener(new ActionListener() {//事件监听器，将对应文本框清零
+        btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 textField.setText("");
                 passwordField.setText("");
@@ -160,10 +159,9 @@ public class Login {
         btnNewButton_1.setBounds(207, 295, 100, 34);
         Loginframe.getContentPane().add(btnNewButton_1);
 
-        //注册按钮
         JButton btnNewButton_2 = new JButton("注册");//注册
         btnNewButton_2.setIcon(new ImageIcon("src/images/注册.png"));
-        btnNewButton_2.addActionListener(new ActionListener() {//调用注册界面
+        btnNewButton_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Registeframe window = new Registeframe();
                 window.frame1.setVisible(true);
@@ -175,31 +173,28 @@ public class Login {
         btnNewButton_2.setBounds(361, 294, 100, 34);
         Loginframe.getContentPane().add(btnNewButton_2);
 
-        //登录界面信息
         JLabel lblNewLabel_2 = new JLabel("\u723D\u6781\u4E86\u8BA2\u9910\u7CFB\u7EDF\u6B22\u8FCE\u60A8\uFF01");
         lblNewLabel_2.setIcon(new ImageIcon("src/images/美食.png"));
         lblNewLabel_2.setFont(new Font("宋体", Font.BOLD, 20));
-        lblNewLabel_2.setBounds(110, 26, 292, 70);
+        lblNewLabel_2.setBounds(110, 26, 342, 70);
         Loginframe.getContentPane().add(lblNewLabel_2);
 
     }
 
-    //根据返回值判断登录是否成功的类
     public int loginSQL(String usernum, String password) throws ClassNotFoundException {
-        if (usernum.length() == 0 || password.length() == 0) {//账号或密码为空时返回0
+        if (usernum.length() == 0 || password.length() == 0) {
             return 0;
         }
         //连接数据库判断是否登录成功
         Connection conn = null;
-        PreparedStatement pstmt1 = null;//调用PreparedStatement接口
+        PreparedStatement pstmt1 = null;
         PreparedStatement pstmt2 = null;
         ResultSet rs1 = null;
         ResultSet rs2 = null;
         //1.获取连接
         try {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");//加载JDBC驱动
-            //设置云服务器上数据库所在url及数据库的账号和密码
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://47.95.200.90:3306/takeaway_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT", "takeaway_platform", "311214");
             conn.setAutoCommit(false);
             //2.定义sql

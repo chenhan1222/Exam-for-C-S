@@ -3,6 +3,7 @@ package 商家界面;
 import classpackage.Goods;
 import classpackage.Store;
 import classpackage.Userorder;
+import 用户界面.Customerframe;
 import 登陆界面.Login;
 
 import javax.swing.*;
@@ -77,7 +78,7 @@ public class Businessframe {
         table.setDefaultRenderer(Object.class, r);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setSize(988, 462);
-        scrollPane.setLocation(10, 114);
+        scrollPane.setLocation(0, 114);
         // scrollPane.set
         businessframe.getContentPane().add(scrollPane, BorderLayout.CENTER);
         List<Goods> goods = Goods.getgoods(store_id);
@@ -258,8 +259,8 @@ public class Businessframe {
         btnNewButton_6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Storeorderframe window = new Storeorderframe();
-                window.setStore_id(store_id);
                 window.frame.setVisible(true);
+                Customerframe.setCenter(window.frame);
             }
         });
         btnNewButton_6.setFont(new Font("宋体", Font.BOLD, 16));
@@ -270,6 +271,9 @@ public class Businessframe {
         btnNewButton_8.setIcon(new ImageIcon("src/images/查看评论.png"));
         btnNewButton_8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                Storereplyframe window = new  Storereplyframe ();
+                window.frame.setVisible(true);
+                Customerframe.setCenter(window.frame);
             }
         });
         btnNewButton_8.setFont(new Font("宋体", Font.BOLD, 16));
@@ -332,14 +336,17 @@ public class Businessframe {
                     String name = textField_1.getText();
                     String type = comboBox.getSelectedItem().toString();
                     double price = Double.valueOf(textField_2.getText());
-                    Store.addGoods(store_id, name, type, price);
-                    JOptionPane.showMessageDialog(null, "添加成功！", "提示", JOptionPane.PLAIN_MESSAGE);
-                    List<Goods> goods = Goods.getgoods(store_id);
-                    refreshGoodsTable(goods, dtm);
+                    if (name.length() == 0 || type.length() == 0 ||textField_2.getText().length()==0)
+                        JOptionPane.showMessageDialog(null, "输入不能为空！");
+                    else {
+                        Store.addGoods(store_id, name, type, price);
+                        JOptionPane.showMessageDialog(null, "添加成功！", "提示", JOptionPane.PLAIN_MESSAGE);
+                        List<Goods> goods = Goods.getgoods(store_id);
+                        refreshGoodsTable(goods, dtm);
+                    }
                 } catch (Exception e2) {
                     JOptionPane.showMessageDialog(null, "添加失败,输入格式错误！", "提示", JOptionPane.PLAIN_MESSAGE);
                 }
-
                 textField_1.setText("");
                 textField_2.setText("");
                 comboBox.setModel(new DefaultComboBoxModel<String>(new String[]{"主食", "热菜", "凉菜", "饮料", "青菜", "肉食", "小料", "套餐"}));

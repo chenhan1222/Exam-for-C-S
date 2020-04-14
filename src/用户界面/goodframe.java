@@ -1,6 +1,7 @@
 package 用户界面;
 
 import classpackage.*;
+import 商家界面.Storeorderframe;
 import 登陆界面.Login;
 
 import javax.swing.*;
@@ -121,7 +122,7 @@ public class goodframe {
         frame3.getContentPane().add(btnNewButton_100);
 
         JButton btnNewButton_002 = new JButton("");
-        System.out.println(User.ifFollow(usernum, store_id));
+        //  System.out.println(User.ifFollow(usernum, store_id));
         if (User.ifFollow(usernum, store_id))  //判断是否关心某店铺，给予相应的图标
 
             btnNewButton_002.setIcon(new ImageIcon("src/images/关注.png"));
@@ -172,8 +173,8 @@ public class goodframe {
                         //System.out.println(good_id);
                     }
                 }
-                for (int j = 0; j < ordergoodslist.size(); j++)
-                    System.out.println(ordergoodslist.get(j).good_id);
+                //for (int j = 0; j < ordergoodslist.size(); j++)
+                //  System.out.println(ordergoodslist.get(j).good_id);
                 Payframe window = new Payframe();
                 window.frame.setVisible(true);
                 Customerframe.setCenter(window.frame);
@@ -236,6 +237,9 @@ public class goodframe {
         btnNewButton_4.setIcon(new ImageIcon("src/images/查看评论.png"));
         btnNewButton_4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                Userremarkframe window = new Userremarkframe();
+                window.frame.setVisible(true);
+                Customerframe.setCenter(window.frame);
             }
         });
         btnNewButton_4.setFont(new Font("宋体", Font.BOLD, 14));

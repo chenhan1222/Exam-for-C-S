@@ -3,7 +3,10 @@ package classpackage;
 import JDBCUtil.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -13,11 +16,14 @@ import java.util.List;
  	用户评价类
  */
 public class Evaluate {
+
+
     public String ordernum;//订单号
     public String nickname;//用户的昵称
     public String comment;//评论
     public double grade;//评分
     public String reply;//商家回复
+
     public static void addEvaluate(Evaluate a) {
         JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
         String sql = "insert into evaluate values(?,?,?,?,?)";
@@ -31,9 +37,27 @@ public class Evaluate {
     }
 
     public static List<Evaluate> getEvaluate(int store_id) {    //获取某商店的评论
+
+        //List<Evaluate> storeevaluates = template.query(sql.toString(), new BeanPropertyRowMapper<Evaluate>(Evaluate.class), store_id);
+
         JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
-        String sql = "select * from evaluate natural join userorder where store_id =?";
-        List<Evaluate> storeevaluates = template.query(sql.toString(), new BeanPropertyRowMapper<Evaluate>(Evaluate.class), store_id);
+        String sql = "select ordernum,nickname,comment,grade,reply from evaluate natural join userorder where store_id =?";
+        List<Evaluate> storeevaluates = template.query(sql, new RowMapper<Evaluate>() {
+            public Evaluate mapRow(ResultSet rs, int i) throws SQLException {
+                Evaluate evaluate = new Evaluate();
+                String ordernum = rs.getString("ordernum");
+                String nickname = rs.getString("nickname");
+                String comment = rs.getString("comment");
+                double  grade = rs.getDouble("grade");
+                String reply =rs.getString("reply");
+                evaluate.setComment(comment);
+                evaluate.setGrade(grade);
+                evaluate.setOrdernum(ordernum);
+                evaluate.setNickname(nickname);
+                evaluate.setReply(reply);
+                return evaluate;
+            }
+        }, store_id);
         return storeevaluates;
     }
 
@@ -91,5 +115,20 @@ public class Evaluate {
 
     public void setGrade(double grade) {
         this.grade = grade;
+    }
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
     }
 }
